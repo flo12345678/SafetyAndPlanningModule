@@ -2,9 +2,10 @@ module SafetyAndPlanningModule
 
 #include("")
 
-function hallo( message)
-  println(message)
+function hallo(message)
+  println("Guten Morgen $(message)")
 end
+
 
 
 
