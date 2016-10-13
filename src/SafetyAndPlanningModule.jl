@@ -11,16 +11,19 @@ const clearance=5.0;
 const x_min_robot=-200.0;
 const x_max_robot=50.0;
 
-x=Vector(0:0.1:2.0);
+x=Vector(0:0.01:2.0);
 
 testobjects=["Circle","Rectangle","Hexagon","Triangle"];
 
+# konnte denke ich immutable werden
 type geometry
   width::Float64
   height::Float64
-  name::String
+  name::String # eher type vielleicht geotype
 end
 
+# https://github.com/Keno/SIUnits.jl ist vielleicht eine Überlegung wert?
+# http://ajkeller34.github.io/Unitful.jl/ ?
 type coordinates
   x::Float64
   y::Float64
@@ -31,6 +34,8 @@ println("Given test geometries are: $testobjects")
 println("Use check_coor(geo,coo) to see if your chosen coordinates are inside the allowed range.")
 println("Input arguments are: geometry(width,height,test geometry) and coordinates(x,y,z).")
 
+
+@doc "Describtion of method help, can be access in julia by shift +? then type name of the function :)"->
 function check_coor(geo::geometry,coo::coordinates)
 
   if coo.x>x_max_robot

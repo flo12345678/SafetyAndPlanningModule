@@ -1,2 +1,2 @@
 # SafetyAndPlanningModule
-Implements the satety software Module and teh Patches Planning Module
+Implements the satety software Module and the Patches Planning Module
