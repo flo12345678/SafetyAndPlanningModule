@@ -45,12 +45,6 @@ immutable triangle<:geometry
   triangle(width,height,geotype) = geotype != "Triangle" ? error("Wrong geometry type") : new(width,height,geotype)
 end
 
-immutable coordinates
-  x::Float64
-  y::Float64
-  z::Float64
-end
-
 #Create given test geometies
 mouse_adapter=circle(50.0u"mm","Circle");
 
@@ -69,12 +63,12 @@ function check_coor(geo::geometry)
   iteration=size(coords)[1];
 
   #initialize error vectors
-  error_string=Array(Float64,(iteration,1));
-  error_x=Vector(1:iteration);
-  error_y=Vector(1:iteration);
-  error_z=Vector(1:iteration);
+  error_string=Array(Any,(iteration,1));
+  error_x=Array(Float64,(iteration,1));
+  error_y=Array(Float64,(iteration,1));
+  error_z=Array(Float64,(iteration,1));
 
-  for i=1:iteration
+for i=1:iteration
 
   x_i=coords[i];
   y_i=coords[iteration+i];
@@ -82,16 +76,16 @@ function check_coor(geo::geometry)
 
   if x_i>x_max_robot
      delta_x_max=x_i-x_max_robot;
-     error_string[i]=0.0;
+     error_string[i]="INVALID";
      error_x[i]=delta_x_max;
      #println("Chosen x coordinate exceeds range ($delta_x_max too big).")
   elseif x_i<x_min_robot
          delta_x_min=x_min_robot-x_i;
-         error_string[i]=0.0;
+         error_string[i]="INVALID"
          error_x[i]=delta_x_min;
          #println("Chosen x coordinate exceeds range ($delta_x_min too small).")
   else
-    error_string[i]=1.0;
+    error_string[i]="VALID";
     error_x[i]=0.0;
     #println("Chosen x coordinate is safe.")
   end #if check x coordinate
@@ -105,12 +99,12 @@ function check_coor(geo::geometry)
      delta_z=(abs(z_i)+diameter/2*cos(atan(abs(y_i/z_i))))-scanner_rad*cos(atan(abs(y_i/z_i)));
 
      if delta>clearance
-        error_string[i]=1.0;
+        error_string[i]="VALID";
         error_y[i]=0.0;
         error_z[i]=0.0;
         #println("Chosen y and z coordinates are safe.")
      else
-        error_string[i]=0.0;
+        error_string[i]="INVALID";
         error_y[i]=delta_y;
         error_z[i]=delta_z;
         #println("You exceeded the y coordinate range by $(delta_y).")
@@ -142,12 +136,12 @@ function check_coor(geo::geometry)
          delta_z=(abs(z_i)+height/2)-scanner_rad*cos(atan((abs(y_i)+width/2)/(abs(z_i)+height/2)));
 
          if clearance>delta_y && clearance>delta_z
-            error_string[i]=1.0;
+            error_string[i]="VALID";
             error_y[i]=0.0;
             error_z[i]=0.0;
             #println("Chosen y and z coordinates are safe.")
          else
-            error_string[i]=0.0;
+            error_string[i]="INVALID";
             error_y[i]=delta_y;
             error_z[i]=delta_z;
             #println("You exceeded the y coordinate range by $(delta_y).")
@@ -197,12 +191,12 @@ function check_coor(geo::geometry)
          delta_z=(abs(z_i)+radius*cos(atan(abs(y_i/z_i))))-scanner_rad*cos(atan(abs(y_i/z_i)));
 
          if delta>clearance
-            error_string[i]=1.0;
+            error_string[i]="VALID";
             error_y[i]=0.0;
             error_z[i]=0.0;
             #println("Chosen y and z coordinates are safe.")
          else
-            error_string[i]=0.0;
+            error_string[i]="INVALID";
             error_y[i]=delta_y;
             error_z[i]=delta_z;
             #println("You exceeded the y coordinate range by $(delta_y).")
@@ -284,12 +278,12 @@ function check_coor(geo::geometry)
          delta_z=(abs(z_new)+perimeter*cos(atan(abs(y_i/z_new))))-scanner_rad*cos(atan(abs(y_i/z_new)));
 
          if delta>clearance
-            error_string[i]=1.0;
+            error_string[i]="VALID";
             error_y[i]=0.0;
             error_z[i]=0.0;
             #println("Chosen y and z coordinates are safe.")
          else
-            error_string[i]=0.0;
+            error_string[i]="INVALID";
             error_y[i]=delta_y;
             error_z[i]=delta_z;
             #println("You exceeded the y coordinate range by $(delta_y).")
@@ -327,9 +321,16 @@ function check_coor(geo::geometry)
   end #if
 
 end #for iteration
-  coord_table=hcat(error_string,coords,error_x,error_y,error_z);
+  table=hcat(error_string,coords,error_x,error_y,error_z);
+  #table headline
+  headline=["Status" "x" "y" "z" "delta_x" "delta_y" "delta_z"];
+  #create final table
+  coord_table=vcat(headline,table);
   #create array for comparision with error_string
-  error_comp=ones(iteration,1);
+  error_comp=Array(Any,(iteration,1));
+  for i=1:iteration
+      error_comp[i]="VALID";
+  end
 
   if error_comp==error_string
      display("All coordinates are safe!");
