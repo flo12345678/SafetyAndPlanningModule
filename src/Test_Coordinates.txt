@@ -1,0 +1,6 @@
+#Please enter test coordinates (x y z) in [mm];
+#separation by blank space between coordinates
+#separation by new line between sets of coordinates
+10.0 10.0 10.0
+0.0 0.0 0.0
+20.0 20.0 20.0

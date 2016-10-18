@@ -1,15 +1,18 @@
 using SafetyAndPlanningModule
 using Base.Test
 
-# one geomtery that works
-geo=geometry(100.0,100.0,"Circle")
-coords=coordinates(1000.0, 600.0, 200.0)
-check_coor(geo,coords)
+#geometries that work
+check_coor(mouse_adapter,origin)
+check_coor(delta_probe,origin)
+check_coor(test_triangle,origin)
+check_coor(test_rectangle,origin)
 
-# one geomtery that fails
-# geo=geometry(50.0,50.0,"Rectangle")
-# coords=coordinates(1000.0, 200.0, 5.0)
-# check_coor(geo,coords)
+# geometries that fail
+coords=coordinates(300.0, 100.0, 100.0)
+check_coor(mouse_adapter,coords)
+check_coor(delta_probe,coords)
+check_coor(test_triangle,coords)
+check_coor(test_rectangle,coords)
 
 
 @test 1 == 1
