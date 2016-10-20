@@ -1,5 +1,6 @@
 using SafetyAndPlanningModule
 using Base.Test
+using Unitful
 
 #create test geometries
 test_triangle=triangle(10.0u"mm",20.0u"mm","Triangle");

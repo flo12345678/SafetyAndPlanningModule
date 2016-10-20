@@ -14,6 +14,7 @@ const x_max_robot=50.0;
 
 abstract geometry
 
+
 immutable circle<:geometry
   diameter::typeof(1.0u"mm")
   geotype::String
@@ -48,7 +49,7 @@ end
 #Create given test geometies
 mouse_adapter=circle(50.0u"mm","Circle");
 
-delta_probe=circle(10.0u"mm","Circle");
+delta_sample=circle(10.0u"mm","Circle");
 
 # immutable movePositions
 # #unit::eigentlich all units für Dimension Length
@@ -60,8 +61,11 @@ delta_probe=circle(10.0u"mm","Circle");
 #
 # end
 
+function convert2Unit(unit,Array)
 
-# function check_coor(scanner::scannerGeo, geo::geometry, coords::Array{Tuple{typeof(0.0u"mm"),typeof(0.0u"mm"),typeof(0.0u"mm")}}; showfig=false)
+end
+
+# function check_coor(scanner::scannerGeo, geo::geometry, coords::Array{Tuple{typeof(0.0u"mm"),typeof(0.0u"mm"),typeof(0.0u"mm")}}; showfig=false,)
 #
 # end
 
