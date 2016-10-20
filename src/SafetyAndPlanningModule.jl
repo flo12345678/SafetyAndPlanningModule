@@ -50,6 +50,21 @@ mouse_adapter=circle(50.0u"mm","Circle");
 
 delta_probe=circle(10.0u"mm","Circle");
 
+# immutable movePositions
+# #unit::eigentlich all units für Dimension Length
+#
+# end
+#
+# # receiveCoil Scanner, spule wird in Scanner hineingelegt und verkleinert Bore Diameter
+# immutable scannerGeo
+#
+# end
+
+
+# function check_coor(scanner::scannerGeo, geo::geometry, coords::Array{Tuple{typeof(0.0u"mm"),typeof(0.0u"mm"),typeof(0.0u"mm")}}; showfig=false)
+#
+# end
+
 @doc "check_coor(geometry) is used to check if the chosen test coordinates are inside the allowed range
       of the roboter movement. If invalid points exist a list with all points will be presented
       to the user. The first column states whether the test point is valid (1.0) or not (0.0).
@@ -90,7 +105,7 @@ for i=1:iteration
     #println("Chosen x coordinate is safe.")
   end #if check x coordinate
 
-  if geo.geotype=="Circle"
+  if geo.geotype=="Circle"  # geo==typeof(circle) wäre typ sicher
      #remove units for calculations
      diameter=ustrip(geo.diameter);
      #check distances
