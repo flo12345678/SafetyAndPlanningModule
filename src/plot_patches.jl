@@ -54,20 +54,20 @@ p_brb[i]=[y_coord[i]+patch_y/2 x_coord[i]+patch_x/2 z_coord[i]-patch_z/2]
 p_brb[iteration+1]=[vol_y/2 vol_x/2 -vol_z/2]
 end
 
-for i=1:iteration+1
+for i=1:iteration
 figure("Plot patches");
-a1=plot3D([p_flb[i][1],p_flt[i][1]],[p_flb[i][2],p_flt[i][2]],[p_flb[i][3],p_flt[i][3]]);
-a2=plot3D([p_flt[i][1],p_frt[i][1]],[p_flt[i][2],p_frt[i][2]],[p_flt[i][3],p_frt[i][3]]);
-a3=plot3D([p_frt[i][1],p_frb[i][1]],[p_frt[i][2],p_frb[i][2]],[p_frt[i][3],p_frb[i][3]]);
-a4=plot3D([p_frb[i][1],p_flb[i][1]],[p_frb[i][2],p_flb[i][2]],[p_frb[i][3],p_flb[i][3]]);
-a5=plot3D([p_blb[i][1],p_blt[i][1]],[p_blb[i][2],p_blt[i][2]],[p_blb[i][3],p_blt[i][3]]);
-a6=plot3D([p_blt[i][1],p_brt[i][1]],[p_blt[i][2],p_brt[i][2]],[p_blt[i][3],p_brt[i][3]]);
-a7=plot3D([p_brt[i][1],p_brb[i][1]],[p_brt[i][2],p_brb[i][2]],[p_brt[i][3],p_brb[i][3]]);
-a8=plot3D([p_brb[i][1],p_blb[i][1]],[p_brb[i][2],p_blb[i][2]],[p_brb[i][3],p_blb[i][3]]);
-a9=plot3D([p_flb[i][1],p_blb[i][1]],[p_flb[i][2],p_blb[i][2]],[p_flb[i][3],p_blb[i][3]]);
-a10=plot3D([p_flt[i][1],p_blt[i][1]],[p_flt[i][2],p_blt[i][2]],[p_flt[i][3],p_blt[i][3]]);
-a11=plot3D([p_frt[i][1],p_brt[i][1]],[p_frt[i][2],p_brt[i][2]],[p_frt[i][3],p_brt[i][3]]);
-a12=plot3D([p_frb[i][1],p_brb[i][1]],[p_frb[i][2],p_brb[i][2]],[p_frb[i][3],p_brb[i][3]]);
+a1=plot3D([p_flb[i][1],p_flt[i][1]],[p_flb[i][2],p_flt[i][2]],[p_flb[i][3],p_flt[i][3]],color="blue");
+a2=plot3D([p_flt[i][1],p_frt[i][1]],[p_flt[i][2],p_frt[i][2]],[p_flt[i][3],p_frt[i][3]],color="blue");
+a3=plot3D([p_frt[i][1],p_frb[i][1]],[p_frt[i][2],p_frb[i][2]],[p_frt[i][3],p_frb[i][3]],color="blue");
+a4=plot3D([p_frb[i][1],p_flb[i][1]],[p_frb[i][2],p_flb[i][2]],[p_frb[i][3],p_flb[i][3]],color="blue");
+a5=plot3D([p_blb[i][1],p_blt[i][1]],[p_blb[i][2],p_blt[i][2]],[p_blb[i][3],p_blt[i][3]],color="blue");
+a6=plot3D([p_blt[i][1],p_brt[i][1]],[p_blt[i][2],p_brt[i][2]],[p_blt[i][3],p_brt[i][3]],color="blue");
+a7=plot3D([p_brt[i][1],p_brb[i][1]],[p_brt[i][2],p_brb[i][2]],[p_brt[i][3],p_brb[i][3]],color="blue");
+a8=plot3D([p_brb[i][1],p_blb[i][1]],[p_brb[i][2],p_blb[i][2]],[p_brb[i][3],p_blb[i][3]],color="blue");
+a9=plot3D([p_flb[i][1],p_blb[i][1]],[p_flb[i][2],p_blb[i][2]],[p_flb[i][3],p_blb[i][3]],color="blue");
+a10=plot3D([p_flt[i][1],p_blt[i][1]],[p_flt[i][2],p_blt[i][2]],[p_flt[i][3],p_blt[i][3]],color="blue");
+a11=plot3D([p_frt[i][1],p_brt[i][1]],[p_frt[i][2],p_brt[i][2]],[p_frt[i][3],p_brt[i][3]],color="blue");
+a12=plot3D([p_frb[i][1],p_brb[i][1]],[p_frb[i][2],p_brb[i][2]],[p_frb[i][3],p_brb[i][3]],color="blue");
 
 PyPlot.xlabel("y [mm]");
 PyPlot.ylabel("x [mm]");
@@ -75,4 +75,19 @@ PyPlot.zlabel("z [mm]");
 axis(:equal);
 
 end
+
+#plot wanted volume in different color
+a13=plot3D([p_flb[iteration+1][1],p_flt[iteration+1][1]],[p_flb[iteration+1][2],p_flt[iteration+1][2]],[p_flb[iteration+1][3],p_flt[iteration+1][3]],color="red");
+a14=plot3D([p_flt[iteration+1][1],p_frt[iteration+1][1]],[p_flt[iteration+1][2],p_frt[iteration+1][2]],[p_flt[iteration+1][3],p_frt[iteration+1][3]],color="red");
+a15=plot3D([p_frt[iteration+1][1],p_frb[iteration+1][1]],[p_frt[iteration+1][2],p_frb[iteration+1][2]],[p_frt[iteration+1][3],p_frb[iteration+1][3]],color="red");
+a16=plot3D([p_frb[iteration+1][1],p_flb[iteration+1][1]],[p_frb[iteration+1][2],p_flb[iteration+1][2]],[p_frb[iteration+1][3],p_flb[iteration+1][3]],color="red");
+a17=plot3D([p_blb[iteration+1][1],p_blt[iteration+1][1]],[p_blb[iteration+1][2],p_blt[iteration+1][2]],[p_blb[iteration+1][3],p_blt[iteration+1][3]],color="red");
+a18=plot3D([p_blt[iteration+1][1],p_brt[iteration+1][1]],[p_blt[iteration+1][2],p_brt[iteration+1][2]],[p_blt[iteration+1][3],p_brt[iteration+1][3]],color="red");
+a19=plot3D([p_brt[iteration+1][1],p_brb[iteration+1][1]],[p_brt[iteration+1][2],p_brb[iteration+1][2]],[p_brt[iteration+1][3],p_brb[iteration+1][3]],color="red");
+a20=plot3D([p_brb[iteration+1][1],p_blb[iteration+1][1]],[p_brb[iteration+1][2],p_blb[iteration+1][2]],[p_brb[iteration+1][3],p_blb[iteration+1][3]],color="red");
+a21=plot3D([p_flb[iteration+1][1],p_blb[iteration+1][1]],[p_flb[iteration+1][2],p_blb[iteration+1][2]],[p_flb[iteration+1][3],p_blb[iteration+1][3]],color="red");
+a22=plot3D([p_flt[iteration+1][1],p_blt[iteration+1][1]],[p_flt[iteration+1][2],p_blt[iteration+1][2]],[p_flt[iteration+1][3],p_blt[iteration+1][3]],color="red");
+a23=plot3D([p_frt[iteration+1][1],p_brt[iteration+1][1]],[p_frt[iteration+1][2],p_brt[iteration+1][2]],[p_frt[iteration+1][3],p_brt[iteration+1][3]],color="red");
+a24=plot3D([p_frb[iteration+1][1],p_brb[iteration+1][1]],[p_frb[iteration+1][2],p_brb[iteration+1][2]],[p_frb[iteration+1][3],p_brb[iteration+1][3]],color="red");
+
 end #function

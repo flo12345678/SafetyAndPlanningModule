@@ -143,6 +143,7 @@ end #for iteration
 
   if error_comp==error_string
      display("All coordinates are safe!");
+     return coord_table;
   else
      #plot results
      while plotresults==true
@@ -159,7 +160,7 @@ end #for iteration
      y_scanner=ustrip(scanner_rad)*sin(t*pi);
 
      if typeof(geo)==SafetyAndPlanningModule.circle
-
+       if error_string[i]=="INVALID"
        x_geometry=ustrip(geo.diameter/2)*cos(t*pi)+ustrip(y_i);
        y_geometry=ustrip(geo.diameter/2)*sin(t*pi)+ustrip(z_i);
 
@@ -169,10 +170,10 @@ end #for iteration
        PyPlot.ylabel("z [mm]");
        axis(:equal);
        display(p);
-
+       end
 
      elseif typeof(geo)==SafetyAndPlanningModule.rectangle
-
+       if error_string[i]=="INVALID"
        #Create rectangle corner points
        #point bottom left
        p_bl=ustrip([y_i-geo.width/2, z_i-geo.height/2]);
@@ -185,13 +186,15 @@ end #for iteration
 
        figure("Plot results - $(geo.name) positions - Set $i");
        p=plot(x_scanner,y_scanner,[p_bl[1],p_ul[1]],[p_bl[2],p_ul[2]],[p_ul[1],p_ur[1]],[p_ul[2],p_ur[2]],
-              [p_ur[1],p_br[1]],[p_ur[2],p_br[2]],[p_br[1],p_bl[1]],[p_br[2],p_bl[2]]);
+              [p_ur[1],p_br[1]],[p_ur[2],p_br[2]],[p_br[1],p_bl[1]],[p_br[2],p_bl[2]],color="blue");
        PyPlot.xlabel("y [mm]");
        PyPlot.ylabel("z [mm]");
        axis(:equal);
        display(p);
+       end
 
      elseif typeof(geo)==SafetyAndPlanningModule.hexagon
+       if error_string[i]=="INVALID"
 
        if geo.width>geo.height
           hex_radius=geo.width/2;
@@ -221,7 +224,7 @@ end #for iteration
           p=plot(x_scanner,y_scanner,x_geometry,y_geometry,[p_l[1],p_tl[1]],[p_l[2],p_tl[2]],
                  [p_tl[1],p_tr[1]],[p_tl[2],p_tr[2]],[p_tr[1],p_r[1]],[p_tr[2],p_r[2]],
                  [p_r[1],p_br[1]],[p_r[2],p_br[2]],[p_br[1],p_bl[1]],[p_br[2],p_bl[2]],
-                 [p_bl[1],p_l[1]],[p_bl[2],p_l[2]]);
+                 [p_bl[1],p_l[1]],[p_bl[2],p_l[2]],color="blue");
           PyPlot.xlabel("y [mm]");
           PyPlot.ylabel("z [mm]");
           axis(:equal);
@@ -246,15 +249,16 @@ end #for iteration
           p=plot(x_scanner,y_scanner,x_geometry,y_geometry,[p_lb[1],p_lt[1]],[p_lb[2],p_lt[2]],
                  [p_lt[1],p_t[1]],[p_lt[2],p_t[2]],[p_t[1],p_rt[1]],[p_t[2],p_rt[2]],
                  [p_rt[1],p_rb[1]],[p_rt[2],p_rb[2]],[p_rb[1],p_b[1]],[p_rb[2],p_b[2]],
-                 [p_b[1],p_lb[1]],[p_b[2],p_lb[2]]);
+                 [p_b[1],p_lb[1]],[p_b[2],p_lb[2]],color="blue");
           PyPlot.xlabel("y [mm]");
           PyPlot.ylabel("z [mm]");
           axis(:equal);
           display(p);
        end
+       end
 
      elseif typeof(geo)==SafetyAndPlanningModule.triangle
-
+       if error_string[i]=="INVALID"
        perimeter=sqrt(geo.width^2/4+geo.height^2)/(2*sin(atan(2*geo.height/geo.width)));
 
        z_new=z_i+((2/3)*geo.height-perimeter);
@@ -272,16 +276,16 @@ end #for iteration
 
        figure("Plot results - $(geo.name) positions - Set $i");
        p=plot(x_scanner,y_scanner,x_geometry,y_geometry,[p_bl[1],p_u[1]],[p_bl[2],p_u[2]],
-              [p_u[1],p_br[1]],[p_u[2],p_br[2]],[p_br[1],p_bl[1]],[p_br[2],p_bl[2]]);
+              [p_u[1],p_br[1]],[p_u[2],p_br[2]],[p_br[1],p_bl[1]],[p_br[2],p_bl[2]],color="blue");
        PyPlot.xlabel("y [mm]");
        PyPlot.ylabel("z [mm]");
        axis(:equal);
        display(p);
+       end #if error_string
      end #for
      end #if cases
      plotresults=false;
    end #while
-     return coord_table
      display(coord_table);
      display("Used geometry: $(geo.name)")
      error("Some coordinates exceeded their range!");

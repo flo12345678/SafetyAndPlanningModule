@@ -41,19 +41,19 @@ immutable scannergeo
   name::String
 end
 
-type wanted_volume
+immutable wanted_volume
      x_dim::typeof(1.0u"mm")
      y_dim::typeof(1.0u"mm")
      z_dim::typeof(1.0u"mm")
 end
 
-type amplitude
+immutable amplitude
      amp_x::typeof(1.0u"mT")
      amp_y::typeof(1.0u"mT")
      amp_z::typeof(1.0u"mT")
 end
 
-type gradient_scan
+immutable gradient_scan
      strength::typeof(1.0u"T/m")
 end
 
@@ -65,7 +65,7 @@ delta_sample=circle(10.0u"mm","Delta sample");
 #create given scanner diameter
 scanner_reg=scannergeo(120.0u"mm","regular scanner diameter");
 
-scanner_small=scannergeo(100.0u"mm","reduced scanner diameter");
+scanner_red=scannergeo(100.0u"mm","reduced scanner diameter");
 
 include("create_data.jl")
 include("convert2unit.jl")
