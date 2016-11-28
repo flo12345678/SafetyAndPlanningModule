@@ -35,7 +35,7 @@ num_y=round(vol_y/patch_y+1/1000)-1;
 else
 num_y=round(vol_y/patch_y+1/1000);
 end
-#calculate number of patches for each direction and for exact fit/recommended
+#calculate number of patches for each direction and for exact fit
 #volume changes (res_x,y,z==0.0) and overlap/increase
 
 x_max=convert(Int64,num_x);
@@ -154,9 +154,12 @@ if overlap==false && increase==false
       display("Number of pixel: $pixel")
 
    elseif res_x ==0.0 && res_y ==0.0 && res_z ==0.0
+          diff_x=0.0u"mm";
+          diff_y=0.0u"mm";
+          diff_z=0.0u"mm";
           display("Volume can be exactly covered by $pixel patches.")
    end
-return storage,pixel
+return storage,pixel,diff_x,diff_y,diff_z
 
 elseif overlap==true
 
@@ -202,7 +205,7 @@ elseif overlap==true
      for k=0:z_max-1
          for j=0:y_max-1
              for i=1:x_max
-                 x_coords[i+j*x_max+patches_layer*k]=(patch_x-delta_x)/2+(x_max/2-1)*(patch_x-delta_x)-(i-1)*(patch_x-delta_x)
+                 x_coords[i+j*x_max+patches_layer*k]=(patch_x/2-delta_x/2)+(x_max/2-1)*(patch_x-delta_x)-(i-1)*(patch_x-delta_x)
              end #num_x
          end # num_y
      end# num_lay
@@ -223,7 +226,7 @@ elseif overlap==true
      for k=0:z_max-1
          for j=0:x_max-1
              for i=0:y_max-1
-                 y_coords[1+i*x_max+j+patches_layer*k]=-(patch_y-delta_y)/2-(y_max/2-1)*(patch_y-delta_y)+(patch_y-delta_y)*(i)
+                 y_coords[1+i*x_max+j+patches_layer*k]=-(patch_y/2-delta_y/2)-(y_max/2-1)*(patch_y-delta_y)+(patch_y-delta_y)*(i)
              end #num_x
          end # num_y
      end# num_lay
@@ -243,7 +246,7 @@ elseif overlap==true
 
      for k=0:z_max-1
          for i=1:patches_layer
-             z_coords[i+k*patches_layer]=((patch_z-delta_z)/2+(patch_z-delta_z)*(z_max/2-1))-(patch_z-delta_z)*k
+             z_coords[i+k*patches_layer]=((patch_z/2-delta_z/2)+(patch_z-delta_z)*(z_max/2-1))-(patch_z-delta_z)*k
          end #num_x
      end# num_lay
 
@@ -272,7 +275,7 @@ elseif overlap==true
           display(diff_vol)
           display("Number of pixel: $pixel")
        end
-    return storage,pixel
+    return storage,pixel,diff_x,diff_y,diff_z
 
 elseif increase==true
 
@@ -382,7 +385,7 @@ elseif increase==true
         display(diff_vol)
         display("Number of pixel: $pixel")
      end
-  return storage,pixel
+  return storage,pixel,diff_x,diff_y,diff_z
 
 end #no overlap,increase
 

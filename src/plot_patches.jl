@@ -5,7 +5,7 @@ function plot_patches(data_array,volume::wanted_volume,grad::gradient_scan,amp::
 patch_x=ustrip(4*amp.amp_x/grad.strength);
 patch_y=ustrip(4*amp.amp_y/grad.strength);
 patch_z=ustrip(2*amp.amp_z/grad.strength);
-
+#create single coordinate vectors from data array
 x_coord=[x[1] for x in data_array];
 y_coord=[x[2] for x in data_array];
 z_coord=[x[3] for x in data_array];

@@ -25,12 +25,12 @@ for i=1:iteration
   if x_i>x_max_robot
      delta_x_max=x_i-x_max_robot;
      error_string[i]="INVALID";
-     error_x[i]=delta_x_max;
+     error_x[i]=ustrip(delta_x_max);
 
   elseif x_i<x_min_robot
          delta_x_min=x_min_robot-x_i;
          error_string[i]="INVALID"
-         error_x[i]=delta_x_min;
+         error_x[i]=ustrip(delta_x_min);
 
   else
     error_string[i]="VALID";
@@ -288,6 +288,7 @@ end #for iteration
    end #while
      display(coord_table);
      display("Used geometry: $(geo.name)")
+     display("Used scanner diameter: $(scanner.name)")
      error("Some coordinates exceeded their range!");
   end
 

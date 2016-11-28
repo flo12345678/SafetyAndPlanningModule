@@ -11,6 +11,7 @@ const clearance=5.0u"mm";
 const x_min_robot=-200.0u"mm";
 const x_max_robot=50.0u"mm";
 
+#define test geometries
 abstract geometry
 
 immutable circle<:geometry
@@ -36,6 +37,7 @@ immutable triangle<:geometry
   name::String
 end
 
+#define further parameter types
 immutable scannergeo
   diameter::typeof(1.0u"mm")
   name::String
@@ -70,6 +72,7 @@ scanner_red=scannergeo(100.0u"mm","reduced scanner diameter");
 include("create_data.jl")
 include("convert2unit.jl")
 include("check_coor.jl")
+include("correct_points.jl")
 include("volume_patches.jl")
 include("plot_patches.jl")
 
